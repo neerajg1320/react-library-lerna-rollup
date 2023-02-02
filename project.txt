@@ -33,11 +33,13 @@ lerna add clsx --dev --scope '{@glassball/button,@glassball/text}'
 lerna add rollup --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
 lerna add rollup-plugin-babel --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
 lerna add @rollup/plugin-node-resolve --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add @rollup/plugin-commonjs --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
 lerna add rollup-plugin-peer-deps-external  --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
 lerna add rollup-plugin-postcss --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
 lerna add rollup-plugin-terser --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
 lerna add @babel/preset-react --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
 lerna add @babel/preset-env --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add postcss --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
 
 
 # In the three packages we will add script and add rollup.config.mjs file
@@ -90,9 +92,7 @@ react-library-lerna-rollup/ $
 ## Now we will add storybook
 
 $ npx -p @storybook/cli sb init --type react
-
-# The command that did not work properly
-$ npx sb init
+$ npm install --save-dev react react-dom
 
 # We will change the path in the .storybook/main.js to look into packages folder
 $ vi .storybook/main.js
