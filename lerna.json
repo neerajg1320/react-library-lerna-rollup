@@ -2,10 +2,12 @@
   "packages": [
     "packages/*"
   ],
-  "version": "0.0.9",
+  "version": "0.0.10",
   "hoist": true,
   "stream": true,
   "bootstrap": {
-    "npmClientArgs": ["--no-package-lock"]
+    "npmClientArgs": [
+      "--no-package-lock"
+    ]
   }
 }
