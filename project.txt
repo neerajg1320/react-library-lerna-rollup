@@ -140,3 +140,5 @@ Give a version of 0.0.9 so that when we do lerna publish next version can be 0.0
   "main": "dist/button.cjs.js",
   "module": "dist/button.esm.js",
 # Optionally we could have also added "src" property which points to "lib/button.js"
+
+## Create the table component
