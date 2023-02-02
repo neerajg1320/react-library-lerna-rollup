@@ -27,17 +27,17 @@ lerna add @glassball/button --scope=@glassball/gallery
 lerna add @glassball/text --scope=@glassball/gallery
 lerna add react --dev --scope '{@glassball/button,@glassball/text}'
 lerna add react@18.x --peer --scope '{@glassball/button,@glassball/text}'
-lerna add clsx --scope '{@glassball/button,@glassball/text}'
+lerna add clsx --dev --scope '{@glassball/button,@glassball/text}'
 
 # We support the builder differently
-lerna add rollup --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
-lerna add rollup-plugin-babel --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
-lerna add @rollup/plugin-node-resolve --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
-lerna add rollup-plugin-peer-deps-external  --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
-lerna add rollup-plugin-postcss --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
-lerna add rollup-plugin-terser --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
-lerna add @babel/preset-react --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
-lerna add @babel/preset-env --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add rollup --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add rollup-plugin-babel --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add @rollup/plugin-node-resolve --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add rollup-plugin-peer-deps-external  --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add rollup-plugin-postcss --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add rollup-plugin-terser --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add @babel/preset-react --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add @babel/preset-env --dev --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
 
 
 # In the three packages we will add script and add rollup.config.mjs file
