@@ -1,6 +1,6 @@
 {
   "name": "@glassball/gallery",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Now I’m the model of a modern major general / The venerated Virginian veteran whose men are all / Lining up, to put me up on a pedestal / Writin’ letters to relatives / Embellishin’ my elegance and eloquence / But the elephant is in the room / The truth is in ya face when ya hear the British cannons go / BOOM",
   "keywords": [],
   "author": "Neeraj Gupta <neerajgupta.mbox@gmail.com>",
@@ -34,8 +34,8 @@
   "devDependencies": {
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
-    "@glassball/button": "^0.0.12",
-    "@glassball/text": "^0.0.12",
+    "@glassball/button": "^0.0.13",
+    "@glassball/text": "^0.0.13",
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "postcss": "^8.4.21",
