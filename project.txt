@@ -1,0 +1,142 @@
+$ mkdir react-library-lerna-rollup
+$ cd react-library-lerna-rollup
+
+npm init -y
+lerna init
+
+$ vi lerna.json
+{
+  "packages": [
+    "packages/*"
+  ],
+  "version": "0.0.0",
+  "hoist": true,
+  "stream": true,
+  "bootstrap": {
+    "npmClientArgs": ["--no-package-lock"]
+  }
+}
+
+# We will not create as we plan to use rollup using rollup.config.js file
+lerna create @glassball/gallery --yes
+lerna create @glassball/button --yes
+lerna create @glassball/text --yes
+
+
+lerna add @glassball/button --scope=@glassball/gallery
+lerna add @glassball/text --scope=@glassball/gallery
+lerna add react --dev --scope '{@glassball/button,@glassball/text}'
+lerna add react@18.x --peer --scope '{@glassball/button,@glassball/text}'
+lerna add clsx --scope '{@glassball/button,@glassball/text}'
+
+# We support the builder differently
+lerna add rollup --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add rollup-plugin-babel --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add @rollup/plugin-node-resolve --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add rollup-plugin-peer-deps-external  --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add rollup-plugin-postcss --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add rollup-plugin-terser --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add @babel/preset-react --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+lerna add @babel/preset-env --scope '{@glassball/gallery,@glassball/button,@glassball/text}'
+
+
+# In the three packages we will add script and add rollup.config.mjs file
+"build-lib": "rollup -c"
+
+# We will modify the rollup.config.mjs to update input path
+# We will do that in button.
+# We will add the code in lib/button.js and add styles.css
+
+$ lerna run build-lib --scope=@glassball/button
+
+# build success !
+
+# Remove Warning:
+# TBD(Verify): We will keep the packages in lerna.json
+From package.json we will remove the following for now:
+  "workspaces": [
+    "packages/*"
+  ],
+
+
+# We copied the rollup.config.js
+# We changed the input to lib/gallery.js and lib/text.js respectively
+# We also copy styles.css in text/lib/
+
+# Now we will create lib/gallery.js
+import {Button} from "@glassball/button";
+import {Text} from "@glassball/text";
+
+export {Button, Text};
+
+
+# Now we will run the lerna target for all three builds
+$ lerna run build-lib
+
+react-library-lerna-rollup/ $ lerna run build-lib
+info cli using local version of lerna
+:
+@glassball/text: created dist/index.js, dist/index.es.js in 960ms
+@glassball/button: created dist/index.js, dist/index.es.js in 980ms
+:
+glassball/gallery: created dist/index.js, dist/index.es.js in 1s
+
+ >  Lerna (powered by Nx)   Successfully ran target build-lib for 3 projects
+react-library-lerna-rollup/ $
+
+# It worked successfully !
+
+
+## Now we will add storybook
+
+$ npx -p @storybook/cli sb init --type react
+
+# The command that did not work properly
+$ npx sb init
+
+# We will change the path in the .storybook/main.js to look into packages folder
+$ vi .storybook/main.js
+
+# Add support for CSS modules in storybook.
+$ vi .storybook/main.js
+  webpackFinal: async (config) => {
+    // remove default css rule from storybook
+    config.module.rules = config.module.rules.filter((f) => f.test.toString() !== '/\\.css$/');
+
+    // push our custom easy one
+    config.module.rules.push({
+      test: /\.css$/,
+      use: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            // Key config
+            modules: true,
+          },
+        },
+      ],
+    });
+
+    // This is where we change the order of resolution of main fields
+    config.resolve.mainFields = ['src', 'module', 'main'];
+
+    // Return the altered config
+    return config;
+  }
+
+## Now we will publish the modules.
+Give a version of 0.0.9 so that when we do lerna publish next version can be 0.0.10
+
+# Also add the publicConfig.
+  "publishConfig": {
+    "access": "public"
+  },
+
+  "files": [
+    "dist"
+  ],
+
+  "main": "dist/button.cjs.js",
+  "module": "dist/button.esm.js",
+# Optionally we could have also added "src" property which points to "lib/button.js"
